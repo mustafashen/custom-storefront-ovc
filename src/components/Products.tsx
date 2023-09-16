@@ -1,37 +1,17 @@
 import { getProducts } from '@/resources/getProducts'
 import { AspectRatio, Card, Grid, Stack, Typography } from '@mui/joy'
 import React from 'react'
+import Product from './Product'
 
-export default async function Products() {
+export default async function Products({products} : any) {
   
-  const res = await getProducts()
-  const products = res.body.data.products.edges
-
   return (
-    <Grid
-      sx={{
-        gridTemplateColumns: 'repeat(12, minmax(0, 1fr))'
-      }}>
+    <Grid container columns={12}>
       {
         products.map((product: any) => {
+          const id = product.node.id.match(/\d+$/g)[0]
           return (
-            <AspectRatio 
-              key={Math.round(Math.random() * 100)} 
-              ratio={2/3}   
-              sx={{
-                bgcolor: 'background.level2',
-                borderRadius: 'md',
-                gridColumn: 'span 3 / span 3'
-              }}>
-              <Card>
-                <Stack>
-                  <Stack>
-                    <Typography>{product.node.title}</Typography>
-                    <Typography>{product.node.description}</Typography>
-                  </Stack>
-                </Stack>
-              </Card>
-            </AspectRatio>
+            <Product product={product} key={id}/>
           )
         })
       }

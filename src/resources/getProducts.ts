@@ -1,19 +1,47 @@
 import { shopifyFetch } from "@/services/shopifyFetch"
 
-async function getProducts() {
+async function getProducts(collection = '') {
 
-  const res = await shopifyFetch({
-    query: `{
-        products(first: 100) {
-          edges{
+  let query = `{
+    products(first: 100) {
+      edges{
+        node {
+          id
+          title
+          description
+          images(first:1){
+            edges{
+                node{ url }
+            }
+          }
+        }
+      }
+    }
+  }`
+
+  if (collection !== '') {
+    query = `{
+      collection(handle: "${collection}") {
+        products(first: 10) {
+          edges {
             node {
               id
               title
               description
+              images(first:1){
+                edges{
+                    node{ url }
+                }
+              }
             }
           }
         }
-      }`
+      }
+    }`
+  }
+  
+  const res = await shopifyFetch({
+    query: query
   })
   
   return res

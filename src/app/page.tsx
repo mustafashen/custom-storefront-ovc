@@ -1,12 +1,13 @@
 import Products from "@/components/Products";
-import { shopifyFetch } from "@/services/shopifyFetch";
+import { getProducts } from "@/resources/getProducts";
 
-export default function Home() {
-  
+export default async function Home() {
+  const res = await getProducts()
+  const products = res.body.data.products.edges
 
   return (
     <main>
-      <Products/>
+      <Products products={products}/>
     </main>
   )
 }

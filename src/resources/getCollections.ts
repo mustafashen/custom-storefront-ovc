@@ -8,6 +8,7 @@ async function getCollections() {
         edges {
             node {
               title
+              handle
             }
         }
       }
