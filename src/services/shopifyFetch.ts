@@ -1,4 +1,4 @@
-export async function shopifyFetch({query, variables}: {query: string, variables?: any}) {
+export async function shopifyFetch({query, variables}: {query?: string, mutation?: string, variables?: any}) {
   const endpoint = process.env.SHOPIFY_STORE_DOMAIN
   const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
 
@@ -17,6 +17,7 @@ export async function shopifyFetch({query, variables}: {query: string, variables
         status: res.status,  
         body: await res.json()
       }
+
   } catch (error) {
     console.log({Error: error })
     return {
