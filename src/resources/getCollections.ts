@@ -3,7 +3,8 @@ import { shopifyFetch } from "@/services/shopifyFetch"
 async function getCollections() {
 
   const res = await shopifyFetch({
-    query: `{
+    query: `
+    {
       collections(first: 5) {
         edges {
             node {

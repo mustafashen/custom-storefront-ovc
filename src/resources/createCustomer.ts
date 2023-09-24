@@ -1,31 +1,24 @@
-import { shopifyFetch } from "@/services/shopifyFetch";
+import { shopifyFetch } from "@/services/shopifyFetch"
 
-interface Customer {
-  email: string,
-  password: string,
-  name: string,
-  lastName: string
-}
-// TODO: 
-// Fix query notations
-// Fix query response parse errors
-async function createCustomer(customer: Customer) {
-  const res = shopifyFetch({
-    query: `{
+async function createCustomer(newCustomer: any) {
+
+  const res = await shopifyFetch({
+    query: `
+    mutation {
       customerCreate(input: {
-        email: "${customer.email}",
-        password: "${customer.password}",
-        firstName: "${customer.name}",
-        lastName: "${customer.lastName}"
+        email: "eun@example.com",
+        password: "password123",
+        firstName: "John",
+        lastName: "Doe"
       }) {
         customer {
-          id
-          email
+           id
+           email
         }
       }
     }`
   })
-
+  
   return res
 }
 

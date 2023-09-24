@@ -18,10 +18,13 @@ export default function SignupForm() {
     setSignupForm({...signupForm, [event.target.name]: event.target.value})
   }
 
-  const handleClick = () => {
+  const handleClick = async () => {
     let newCustomer = {...signupForm}
-
-    createCustomer(newCustomer)
+    const res = await fetch("/api/customer/create", {
+      method: 'POST',
+      body: JSON.stringify({ newCustomer }),
+    })
+    console.log(res)
   }
 
   return (

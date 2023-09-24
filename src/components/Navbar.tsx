@@ -8,7 +8,6 @@ export default async function Navbar() {
   const res = await getCollections()
   const collections = res.body.data.collections.edges
 
-  console.log(collections)
   return (
     <Sheet>
       <Stack direction={'row'} justifyContent={'space-between'}>
