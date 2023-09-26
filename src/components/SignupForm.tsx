@@ -22,6 +22,7 @@ export default function SignupForm() {
     let newCustomer = {...signupForm}
     const res = await fetch("/api/customer/create", {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({ newCustomer }),
     })
     console.log(res)
