@@ -1,12 +1,11 @@
 'use client'
-import { createCustomer } from '@/resources/createCustomer'
 import { Box, Button, Card, FormControl, FormLabel, Input, Typography } from '@mui/joy'
 import React, { ChangeEvent, useState } from 'react'
 
 export default function SignupForm() {
   const [signupForm, setSignupForm] = useState({
     email: '',
-    name: '',
+    firstName: '',
     lastName: '',
     password: ''
   })
@@ -18,6 +17,7 @@ export default function SignupForm() {
 
   const handleClick = async () => {
     let newCustomer = {...signupForm}
+    console.log(newCustomer)
     const res = await fetch("/api/customer/create", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
@@ -36,7 +36,7 @@ export default function SignupForm() {
           </FormLabel>
           <FormLabel>
             <Typography>First Name:</Typography>
-            <Input  name="name" value={signupForm.name}  onChange={(event) => handleChange(event)}/>
+            <Input  name="firstName" value={signupForm.firstName}  onChange={(event) => handleChange(event)}/>
           </FormLabel>
           <FormLabel>
             <Typography>Last Name:</Typography>
