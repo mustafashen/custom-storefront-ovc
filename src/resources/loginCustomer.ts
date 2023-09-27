@@ -1,13 +1,10 @@
 import { shopifyFetch } from "@/services/shopifyFetch"
 
-async function loginCustomer(newSession: any) {
-  console.log(newSession)
+async function loginCustomer(newSession: {email: string, password: string}) {
   const res = await shopifyFetch({
     query: `
-    mutation {
-      customerAccessTokenCreate(input: 
-        {email: $email, 
-        password: $password}) {
+    mutation customerAccessTokenCreate {
+      customerAccessTokenCreate(input: {email: "${newSession.email}", password: "${newSession.password}"}) {
         customerAccessToken {
           accessToken
         }
@@ -15,11 +12,8 @@ async function loginCustomer(newSession: any) {
           message
         }
       }
-    }`
-  , variables: {
-      email: newSession.email,
-      password: newSession.password
-  }})
+    }
+    `})
   
   return res
 }

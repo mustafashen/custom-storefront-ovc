@@ -1,5 +1,4 @@
 'use client'
-
 import { createCustomer } from '@/resources/createCustomer'
 import { Box, Button, Card, FormControl, FormLabel, Input, Typography } from '@mui/joy'
 import React, { ChangeEvent, useState } from 'react'
@@ -13,7 +12,6 @@ export default function SignupForm() {
   })
 
   const handleChange = (event: ChangeEvent) => {
-    console.log(handleChange)
     //@ts-ignore
     setSignupForm({...signupForm, [event.target.name]: event.target.value})
   }
@@ -25,7 +23,8 @@ export default function SignupForm() {
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({ newCustomer }),
     })
-    console.log(res)
+    const resData = await res.json()
+    console.log(resData)
   }
 
   return (

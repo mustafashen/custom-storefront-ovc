@@ -17,6 +17,9 @@ export default function LoginForm() {
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({ newSession })
     })
+
+    const resData = await res.json()
+    console.log(resData)
   }
   
   return (
