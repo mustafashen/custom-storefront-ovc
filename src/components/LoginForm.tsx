@@ -1,7 +1,12 @@
-import { Button, Card, FormLabel, Input, TextField, Typography } from '@mui/joy'
+'use client'
+import { Button, Card, FormLabel, Input, Typography } from '@mui/joy'
 import React, { ChangeEvent, useState } from 'react'
+import { loginCustomer } from '@/resources/loginCustomer'
+import { createCookie } from '@/utils/createCookie'
+
 
 export default function LoginForm() {
+
   const [loginForm, setLoginForm] = useState({email: '', password: ''})
   
   const handleChange = (event: ChangeEvent) => {
@@ -11,15 +16,10 @@ export default function LoginForm() {
 
   const handleClick = async () => {
     let newSession = {...loginForm}
-
-    const res = await fetch('/api/customer/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({ newSession })
-    })
-
-    const resData = await res.json()
-    console.log(resData)
+    const resData = await loginCustomer(newSession)
+    const accessToken = resData.body.data.customerAccessTokenCreate.customerAccessToken.accessToken
+    console.log(accessToken)
+    createCookie(accessToken)
   }
   
   return (
