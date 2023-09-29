@@ -10,7 +10,7 @@ export default function LoginForm() {
   const [loginForm, setLoginForm] = useState({email: '', password: ''})
   
   const handleChange = (event: ChangeEvent) => {
-    //@ts-ignore
+    //@ts-ignore  
     setLoginForm({...loginForm, [event.target.name]: event.target.value})
   }
 
@@ -18,7 +18,6 @@ export default function LoginForm() {
     let newSession = {...loginForm}
     const resData = await loginCustomer(newSession)
     const accessToken = resData.body.data.customerAccessTokenCreate.customerAccessToken.accessToken
-    console.log(accessToken)
     createCookie(accessToken)
   }
   
