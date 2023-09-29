@@ -2,8 +2,8 @@
  
 import { cookies } from 'next/headers'
  
-async function createCookie(token: string) {
-  cookies().set('accessToken', token)
+async function createCookie(name: string, token: string) {
+  cookies().set(name, token)
 }
 
 export {

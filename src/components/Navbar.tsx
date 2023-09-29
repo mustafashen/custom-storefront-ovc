@@ -1,12 +1,27 @@
+'use client'
+import { createCart } from '@/resources/createCart'
 import { getCollections } from '@/resources/getCollections'
+import { getCookie } from '@/utils/getCookie'
 import { Box, Button, Divider, Dropdown, IconButton, Menu, MenuButton, MenuItem, Sheet, Stack, Typography } from '@mui/joy'
 import Link from 'next/link'
-import { title } from 'process'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default async function Navbar() {
-  const res = await getCollections()
-  const collections = res.body.data.collections.edges
+export default function Navbar() {
+  const [collectionArray, setCollectionArray] = useState<{node: {title : string, handle: string}}[]>([])
+  useEffect(() => {
+    const setCollection = async () => {
+      const res = await getCollections()
+      setCollectionArray([...res.body.data.collections.edges])
+    }
+    setCollection()
+  }, [])
+
+  const createCartAction = async () => {
+    const res = await createCart()
+    console.log(await getCookie('cartID'))
+  }
+
+  
 
   return (
     <Sheet>
@@ -20,7 +35,7 @@ export default async function Navbar() {
         </Box>
         <Box>
           {
-            collections.map((collection: {node: {title : string, handle: string}}) => {
+            collectionArray.map((collection: {node: {title : string, handle: string}}) => {
               return (
                 <Link 
                   key={Math.round(Math.random() * 100)} 
@@ -39,7 +54,7 @@ export default async function Navbar() {
         <Box>
           <Typography>
             <IconButton>Wish</IconButton>
-            <IconButton>Cart</IconButton>
+            <IconButton onClick={() => createCartAction()}>Cart</IconButton>
           </Typography>
         </Box>
       </Stack>

@@ -4,8 +4,7 @@ import { getCookie } from '@/utils/getCookie'
 import { Button, Card, FormLabel, Input, Typography } from '@mui/joy'
 import React, { ChangeEvent, useState } from 'react'
 
-// TODO:
-// Create, createAddress server action
+
 export default function AddressForm() {
 const [addressForm, setAddressForm] = useState({
     address1: "",
@@ -27,8 +26,8 @@ const [addressForm, setAddressForm] = useState({
 
   const handleClick = async () => {
     const newAddress = {...addressForm}
-    const token = await getCookie() 
-    
+    const token = await getCookie('accessToken') 
+
     if (token) {
       const res = await createAddress(newAddress, token.value)
       console.log(res)

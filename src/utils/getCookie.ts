@@ -2,8 +2,8 @@
  
 import { cookies } from 'next/headers'
  
-async function getCookie() {
-  const token = cookies().get('accessToken')
+async function getCookie(name: string) {
+  const token = cookies().get(name)
   return token
 }
 

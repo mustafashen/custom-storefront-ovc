@@ -16,9 +16,7 @@ export default function LoginForm() {
 
   const handleClick = async () => {
     let newSession = {...loginForm}
-    const resData = await loginCustomer(newSession)
-    const accessToken = resData.body.data.customerAccessTokenCreate.customerAccessToken.accessToken
-    createCookie(accessToken)
+    await loginCustomer(newSession)
   }
   
   return (

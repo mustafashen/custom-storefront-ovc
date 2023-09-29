@@ -1,5 +1,6 @@
 "use server"
 import { shopifyFetch } from "@/services/shopifyFetch"
+import { createCookie } from "@/utils/createCookie"
 
 async function loginCustomer(newSession: {email: string, password: string}) {
 
@@ -16,6 +17,11 @@ async function loginCustomer(newSession: {email: string, password: string}) {
       }
     }
     `})
+
+  if (res.status === 200) {
+    const accessToken = res.body.data.customerAccessTokenCreate.customerAccessToken.accessToken
+    createCookie('accessToken', accessToken)
+  }
   
   return res
 }
