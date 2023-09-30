@@ -4,14 +4,24 @@ async function getProducts(collection = '') {
 
   let query = `{
     products(first: 100) {
-      edges{
+      edges {
         node {
           id
           title
           description
-          images(first:1){
-            edges{
-                node{ url }
+          images(first: 10) {
+            edges {
+              node {
+                url
+              }
+            }
+          }
+          variants(first: 100) {
+            edges {
+              node {
+                id
+                title
+              }
             }
           }
         }
@@ -22,15 +32,25 @@ async function getProducts(collection = '') {
   if (collection !== '') {
     query = `{
       collection(handle: "${collection}") {
-        products(first: 10) {
+        products(first: 100) {
           edges {
             node {
               id
               title
               description
-              images(first:1){
-                edges{
-                    node{ url }
+              images(first: 10) {
+                edges {
+                  node {
+                    url
+                  }
+                }
+              }
+              variants(first: 100) {
+                edges {
+                  node {
+                    id
+                    title
+                  }
                 }
               }
             }
