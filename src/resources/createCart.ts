@@ -2,14 +2,17 @@
 import { shopifyFetch } from "@/services/shopifyFetch"
 import { createCookie } from "@/utils/createCookie"
 
-async function createCart() {
+async function createCart(accessToken: any) {
   const res = await shopifyFetch({
     query: `mutation {
-      cartCreate {
+      cartCreate(input: {
+        buyerIdentity: {
+          customerAccessToken: "${accessToken}"
+        }
+      }) {
         cart {
           id
-          createdAt
-          updatedAt
+          totalQuantity
         }
       }
     }

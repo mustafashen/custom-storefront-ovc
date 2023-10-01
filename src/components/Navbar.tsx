@@ -1,5 +1,6 @@
 'use client'
 import { createCart } from '@/resources/createCart'
+import { getCart } from '@/resources/getCart'
 import { getCollections } from '@/resources/getCollections'
 import { getCookie } from '@/utils/getCookie'
 import { Box, Button, Divider, Dropdown, IconButton, Menu, MenuButton, MenuItem, Sheet, Stack, Typography } from '@mui/joy'
@@ -17,8 +18,8 @@ export default function Navbar() {
   }, [])
 
   const createCartAction = async () => {
-    const res = await createCart()
-    console.log(await getCookie('cartID'))
+    const cart = await getCart()
+    console.log(cart)
   }
 
   
@@ -54,7 +55,13 @@ export default function Navbar() {
         <Box>
           <Typography>
             <IconButton>Wish</IconButton>
-            <IconButton onClick={() => createCartAction()}>Cart</IconButton>
+            <Link 
+              key={Math.round(Math.random() * 100)} 
+              href={{
+                pathname: `/cart`
+              }}>
+              <IconButton onClick={() => createCartAction()}>Cart</IconButton>
+            </Link>
           </Typography>
         </Box>
       </Stack>

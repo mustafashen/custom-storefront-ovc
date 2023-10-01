@@ -3,6 +3,7 @@ import { Button, Card, FormLabel, Input, Typography } from '@mui/joy'
 import React, { ChangeEvent, useState } from 'react'
 import { loginCustomer } from '@/resources/loginCustomer'
 import { createCookie } from '@/utils/createCookie'
+import { getCookie } from '@/utils/getCookie'
 
 
 export default function LoginForm() {
@@ -17,6 +18,7 @@ export default function LoginForm() {
   const handleClick = async () => {
     let newSession = {...loginForm}
     await loginCustomer(newSession)
+    console.log(await getCookie('accessToken'))
   }
   
   return (

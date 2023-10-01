@@ -1,16 +1,17 @@
 'use server'
 import { shopifyFetch } from "@/services/shopifyFetch"
 
-// TODO: createLinesAdd expects merchandise id, product id doesn't work found a fix for this
-async function cartLinesAdd() {
+async function cartLinesAdd(cartId: string, lines: {merchandiseId: string, quantity: number}[]) {
+  const {merchandiseId, quantity} = lines[0]
   const res = await shopifyFetch({
     query: `mutation {
-      cartLinesAdd(cartId: $cartId, lines: $lines) {
+      cartLinesAdd(
+        cartId: "${cartId}",
+        lines: {merchandiseId: "${merchandiseId}", quantity:  ${quantity}}
+      ) {
         cart {
-        }
-        userErrors {
-          code
-          message
+          id
+          totalQuantity
         }
       }
     }
